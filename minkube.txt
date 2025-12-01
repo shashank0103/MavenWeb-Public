@@ -1,0 +1,48 @@
+
+Minikube & Kubernetes Commands Used
+===================================
+
+1. Start Minikube (initial attempt)
+-----------------------------------
+minikube start
+
+
+4. Try Docker driver (fails due to mismatch)
+--------------------------------------------
+minikube start --driver=docker
+
+5. Delete existing cluster
+--------------------------
+minikube delete
+
+6. Start Minikube with Docker driver (successful)
+-------------------------------------------------
+minikube start --driver=docker
+
+7. Check pods in all namespaces
+-------------------------------
+minikube kubectl -- get pods -A
+
+8. Create a deployment using nginx image
+----------------------------------------
+kubectl create deployment mynginx --image=nginx
+
+9. Expose the deployment as a NodePort service
+----------------------------------------------
+kubectl expose deployment mynginx --type=NodePort --port=80 --target-port=80
+
+10. Scale deployment replicas
+-----------------------------
+kubectl scale deployment mynginx --replicas=4
+
+11. Port forward service to localhost
+-------------------------------------
+kubectl port-forward svc/mynginx 9090:80
+
+------------------------------------------------------nagios
+docker pull jasonrivers/nagios:latest
+docker run --name nagiosdemo -p 8888:80 jasonrivers/nagios:latest
+nagiosadmin
+nagios
+
+
