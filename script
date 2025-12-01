@@ -1,0 +1,50 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Clone Repository') {
+            steps {
+                echo "Cloning GitHub repository..."
+                git branch: 'main', url: 'https://github.com/vd-007-b/SE-Week4.projects.git'
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                echo "No dependencies needed for this repo. Skipping..."
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo "Running basic build step..."
+                bat 'echo Build completed successfully!'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo "Running sample tests..."
+                bat 'echo All tests passed!'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo "Simulating deploy step..."
+                bat 'echo Deploy completed!'
+            }
+        }
+
+    }
+
+    post {
+        success {
+            echo "Pipeline executed successfully!"
+        }
+        failure {
+            echo "Pipeline failed!"
+        }
+    }
+}
