@@ -1,0 +1,31 @@
+Docker + Ubuntu + Nginx Experiment – Command List
+
+1. Check Docker Version
+docker --version
+
+2. Pull Ubuntu Image
+docker pull ubuntu:latest
+
+3. Run Ubuntu Container
+docker run -it -p 3000:80 --name myubuntu ubuntu:latest
+
+4. Inside Container: Update Packages
+apt update
+
+5. Install Nginx
+apt install nginx -y
+A
+6. Start Nginx
+nginx
+
+7. Navigate to Web Directory
+cd /var/www/html
+
+8. Rename Default Page
+mv index.nginx-debian.html index.html
+
+9. Edit Homepage Content
+echo '<h1>Hello from Docker Nginx!</h1>' > index.html
+
+10. View in Browser
+http://localhost:3000
