@@ -63,3 +63,195 @@ http://localhost:8050   (TomEE from Compose)
 -------------------------------------------------------------
 
 END OF EXPERIMENT
+
+-------------------------------------------
+WORDPRESS + MYSQL USING DOCKER COMPOSE
+==========================================
+
+AIM:
+To deploy WordPress with a MySQL database using Docker Compose and complete the WordPress installation.
+
+---------------------------------------------------------
+STEP 1: Create a folder and docker-compose.yml file
+---------------------------------------------------------
+mkdir mysql
+cd mysql
+notepad docker-compose.yml
+
+If saved as docker-compose.txt, rename it:
+ren docker-compose.txt docker-compose.yml
+
+---------------------------------------------------------
+STEP 2: docker-compose.yml CONTENT
+---------------------------------------------------------
+services:
+
+  wordpress:
+    image: wordpress:latest
+    ports:
+      - "9080:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+    depends_on:
+      - db
+
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+    ports:
+      - "3307:3306"
+
+---------------------------------------------------------
+STEP 3: Run Docker Compose
+---------------------------------------------------------
+docker-compose up -d
+
+This starts:
+- WordPress container
+- MySQL database container
+
+---------------------------------------------------------
+STEP 4: Open WordPress Installation Page
+---------------------------------------------------------
+Open browser and go to:
+http://localhost:9080
+
+Select your preferred language and click Continue.
+
+---------------------------------------------------------
+STEP 5: Fill the WordPress Welcome Page
+---------------------------------------------------------
+Example values:
+
+Site Title: Hey
+Username: Neksha Srinivas
+Password: Sri@121318
+Email: edigirlaneksha@gmail.com
+
+Click "Install WordPress".
+
+---------------------------------------------------------
+STEP 6: Installation Success Message
+---------------------------------------------------------
+You will see:
+"WordPress has been installed successfully!"
+
+Click the Log In button.
+
+---------------------------------------------------------
+STEP 7: Log in to WordPress Dashboard
+---------------------------------------------------------
+
+Login URL:
+http://localhost:9080/wp-admin
+
+Use the credentials you created:
+
+USERNAME:
+Neksha Srinivas
+
+PASSWORD:
+Sri@121318
+
+---------------------------------------------------------
+STEP 8: After Login
+---------------------------------------------------------
+You will see the WordPress Admin Dashboard:
+- Posts
+- Media
+- Pages
+- Appearance
+- Plugins
+- Settings
+
+WordPress is now fully installed and running using Docker Compose.
+
+---------------------------------------------------------
+END OF EXPERIMENT
+---------------------------------------------------
+Flask + MySQL Docker Compose Experiment
+=========================================
+
+AIM:
+To create a Flask application and MySQL database using Docker Compose and run them together.
+
+---------------------------------------------------------
+Step 1: Create project folder
+---------------------------------------------------------
+mkdir custom_flask
+cd custom_flask
+
+---------------------------------------------------------
+Step 2: Create app.py
+---------------------------------------------------------
+# app.py
+from flask import Flask
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return "Hello from 24BDSA0503 - NEKSHASRINIVAS"
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
+
+---------------------------------------------------------
+Step 3: Create Dockerfile
+---------------------------------------------------------
+# Dockerfile
+FROM python:3.10-slim
+
+WORKDIR /app
+COPY app.py /app/
+RUN pip install flask
+CMD ["python", "app.py"]
+
+---------------------------------------------------------
+Step 4: Create docker-compose.yml
+---------------------------------------------------------
+# docker-compose.yml
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mydb
+    ports:
+      - "3307:3306"   # Changed because 3306 is busy on Windows
+
+---------------------------------------------------------
+Step 5: Build and Run Containers
+---------------------------------------------------------
+docker compose up --build
+
+---------------------------------------------------------
+Step 6: Test the Application
+---------------------------------------------------------
+Open in browser:
+http://localhost:5000
+
+MySQL connection (optional):
+Host: localhost
+Port: 3307
+User: root
+Password: root
+
+---------------------------------------------------------
+END OF EXPERIMENT
+
