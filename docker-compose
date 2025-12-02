@@ -1,0 +1,65 @@
+Docker Compose Experiment – Running Multiple Containers
+-------------------------------------------------------------
+
+AIM:
+To run two servers (Nginx and TomEE) simultaneously using Docker Compose.
+
+-------------------------------------------------------------
+PART 1: Running Two Servers Manually
+-------------------------------------------------------------
+
+1. Run Nginx on port 8010:
+docker run -d -p 8010:80 nginx
+
+2. Run TomEE on port 8020:
+docker run -d -p 8020:8080 tomee
+
+3. Open localhost to view servers:
+http://localhost:8010   (Nginx)
+http://localhost:8020   (TomEE)
+
+
+-------------------------------------------------------------
+PART 2: Running the Same Two Servers Using Docker Compose
+-------------------------------------------------------------
+
+Step 1: Create project folder:
+mkdir comp-1-server
+cd comp-1-server
+
+Step 2: Create docker-compose.yml:
+notepad docker-compose.yml
+
+Paste the following content:
+
+-------------------------------------------------------------
+docker-compose.yml (CODE)
+-------------------------------------------------------------
+services:
+  web:
+    image: nginx
+    ports:
+      - "8060:80"
+
+  db:
+    image: tomee
+    ports:
+      - "8050:8080"
+-------------------------------------------------------------
+
+Step 3: If saved incorrectly, rename (optional):
+ren Dockerfile docker-compose.yml
+
+Step 4: Start both containers using Docker Compose:
+docker-compose up -d
+
+Step 5: Verify containers:
+docker ps
+
+Step 6: Open the servers in browser:
+http://localhost:8060   (Nginx from Compose)
+http://localhost:8050   (TomEE from Compose)
+
+-------------------------------------------------------------
+
+END OF EXPERIMENT
