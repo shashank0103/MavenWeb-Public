@@ -26,6 +26,12 @@ minikube kubectl -- get pods -A
 8. Create a deployment using nginx image
 ----------------------------------------
 kubectl create deployment mynginx --image=nginx
+<role rolename="manager-gui"/>
+<role rolename="manager-script"/>
+<role rolename="manager-jmx"/>
+<role rolename="manager-status"/>
+
+<user username="admin" password="admin123" roles="manager-gui,manager-script,manager-jmx,manager-status"/>
 
 9. Expose the deployment as a NodePort service
 ----------------------------------------------
