@@ -1,0 +1,90 @@
+Docker Image Creation Experiment (Two Methods)
+
+This experiment demonstrates two ways to create Docker images:
+
+Using docker commit
+
+Using a Dockerfile
+
+PART A: Create Image Using docker commit
+
+Pull Ubuntu image
+docker pull ubuntu:latest
+
+Run Ubuntu container
+docker run -it --name mycontainer ubuntu:latest
+
+Inside the container create a file
+cat > myfile.txt
+Hello from my custom image!
+(Press Ctrl + D)
+
+Exit the container
+exit
+
+Create an image from the container
+docker commit mycontainer myimage:v1
+
+Verify the created image
+docker images
+
+Run a new container from the committed image
+docker run -it myimage:v1
+
+Push PART A Image to Docker Hub
+
+Login to Docker Hub
+docker login
+
+Tag the image (replace yourusername)
+docker tag myimage:v1 yourusername/myimage:v1
+
+Push the image
+docker push yourusername/myimage:v1
+
+PART B: Create Image Using Dockerfile
+
+Create a new folder
+mkdir mydockerfileimages
+cd mydockerfileimages
+
+Create a message file
+notepad message.txt
+
+Content of message.txt:
+This image was created using Dockerfile.
+
+Create a Dockerfile
+notepad Dockerfile
+
+Content of Dockerfile:
+FROM ubuntu:latest
+WORKDIR /
+COPY message.txt /message.txt
+CMD ["/bin/bash"]
+
+If Notepad saved it as Dockerfile.txt rename it:
+rename-item Dockerfile.txt Dockerfile
+
+Verify files
+ls
+
+Build the image
+docker build -t mydockerfileimage:v1 .
+
+Verify the image
+docker images
+
+Run container from the Dockerfile image
+docker run -it mydockerfileimage:v1
+
+Check the copied file inside the container
+cat /message.txt
+
+Push PART B Image to Docker Hub
+
+Tag the Dockerfile image
+docker tag mydockerfileimage:v1 yourusername/mydockerfileimage:v1
+
+Push the image
+docker push yourusername/mydockerfileimage:v1
